@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System;
 
 namespace PrincessBrideTrivia.Tests
 {
@@ -53,6 +54,29 @@ namespace PrincessBrideTrivia.Tests
 
             // Assert
             Assert.IsTrue(File.Exists(filePath));
+        }
+
+        [TestMethod]
+        public void AskQuestion_NullQuesition()
+        {
+            Program.AskQuestion(null); //test should pass because test pass when no exception is thrown and fail when exception is thrown
+        }
+
+        [TestMethod]
+        public void ShuffleAnswers_UpdatesCorrectAnswerIndex()
+        {
+            Question question = new Question();
+
+            question.Answers = new string[3];
+            question.Answers[0] = "wrong";
+            question.Answers[1] = "right";
+            question.Answers[2] = "wrong";
+            question.CorrectAnswerIndex = "2";
+
+            Program.shuffleAnswers(question);
+
+            
+            Assert.AreEqual("right", question.Answers[Int32.Parse(question.CorrectAnswerIndex)-1]); //test should pass because test pass when no exception is thrown and fail when exception is thrown
         }
 
         [DataTestMethod]

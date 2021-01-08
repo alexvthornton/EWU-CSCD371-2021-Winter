@@ -9,10 +9,12 @@ namespace PrincessBrideTrivia
         {
             string filePath = GetFilePath();
             Question[] questions = LoadQuestions(filePath);
+            
 
             int numberCorrect = 0;
             for (int i = 0; i < questions.Length; i++)
             {
+                
                 bool result = AskQuestion(questions[i]);
                 if (result)
                 {
@@ -24,12 +26,20 @@ namespace PrincessBrideTrivia
 
         public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
         {
-            return (numberCorrectAnswers / numberOfQuestions * 100) + "%";
+            return ((double)numberCorrectAnswers / numberOfQuestions * 100) + "%";
         }
 
         public static bool AskQuestion(Question question)
         {
-            DisplayQuestion(question);
+
+            if(question is null){
+                System.Console.WriteLine("question is null");
+                return false;
+            }
+            else{
+                DisplayQuestion(question);
+            }     
+            
 
             string userGuess = GetGuessFromUser();
             return DisplayResult(userGuess, question);
@@ -89,8 +99,28 @@ namespace PrincessBrideTrivia
                 question.Answers[1] = answer2;
                 question.Answers[2] = answer3;
                 question.CorrectAnswerIndex = correctAnswerIndex;
+                shuffleAnswers(question);
+                questions[i] = question;
             }
             return questions;
+        }
+
+        public static void shuffleAnswers(Question question){
+            Random rand = new Random();
+
+            for(int i = 0; i < question.Answers.Length-1; i++){
+                int j = rand.Next(i, question.Answers.Length);
+
+                if(question.CorrectAnswerIndex.Equals((i+1).ToString())){
+                    question.CorrectAnswerIndex = (j+1).ToString();
+                }
+                else if(question.CorrectAnswerIndex.Equals((j+1).ToString())){
+                    question.CorrectAnswerIndex = (i+1).ToString();
+                }
+                string temp = question.Answers[i];
+                question.Answers[i] = question.Answers[j];
+                question.Answers[j] = temp;
+            }
         }
     }
 }
