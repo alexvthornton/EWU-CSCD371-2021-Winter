@@ -94,7 +94,7 @@ namespace PrincessBrideTrivia
 
                 Question question = new Question();
                 question.Text = questionText;
-                question.Answers = new string[3];
+                
                 question.Answers[0] = answer1;
                 question.Answers[1] = answer2;
                 question.Answers[2] = answer3;
