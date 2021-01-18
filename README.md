@@ -49,7 +49,7 @@ Read **Chapters 7** - Inheritance, **Chapter 8** - Interfaces,  && **Chapter 9**
 
 
 ## Extra Credit
-- Implement an additional logger. This logger must be unit tested. Some options to consider
+ex- Implement an additional logger. This logger must be unit tested. Some options to consider
 could be one that uses `System.Console` or `System.Diagnostics.Trace`.
 
 ## Relevant APIs to know about

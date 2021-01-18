@@ -1,9 +1,8 @@
 {
   "tools": {
     "vs": {
-      "version": "16.8"
-
-
+      "version": "16.8",
+      "LangVersion":  "9.0"
     }
   }
 }

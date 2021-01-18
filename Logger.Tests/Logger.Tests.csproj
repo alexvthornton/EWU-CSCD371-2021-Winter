@@ -17,8 +17,6 @@
     <ProjectReference Include="..\Logger\Logger.csproj" />
   </ItemGroup>
 
-  <startup useLegacyV2RuntimeActivationPolicy="true">
-    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/>
-  </startup>
+ 
 
 </Project>
