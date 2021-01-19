@@ -3,9 +3,9 @@
     public class LogFactory
     {
 
-        private string filePath;
+        private string? filePath;
 
-        public BaseLogger CreateLogger(string className)
+        public BaseLogger? CreateLogger(string className)
         {
             if(filePath is null)
                 return null;

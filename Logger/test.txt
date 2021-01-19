@@ -7,3 +7,13 @@
 1/18/2021 6:32:30 PM FileLoggerTests Error the message 42
 1/18/2021 6:34:34 PM FileLoggerTests Error: the message 42
 1/18/2021 6:37:21 PM FileLoggerTests Error: the message 42
+
+
+public string FilePath
+        {
+            get
+            {
+                return _filePath!;
+            }
+            set => _filePath = value ?? throw new ArgumentNullException();
+        }1/18/2021 7:34:52 PM FileLoggerTests Error: the message 42

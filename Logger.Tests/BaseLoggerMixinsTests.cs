@@ -14,8 +14,9 @@ namespace Logger.Tests
             // Arrange
 
             // Act
+            #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             BaseLoggerMixins.Error(null, "");
-
+            #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
             // Assert
         }
 

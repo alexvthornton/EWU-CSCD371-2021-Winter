@@ -6,7 +6,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <LangVersion>9.0</LangVersion>
-    
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
 </Project>

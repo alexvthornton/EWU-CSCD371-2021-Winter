@@ -6,19 +6,27 @@ namespace Logger
     public class FileLogger : BaseLogger
     {
 
-        private string filePath;
+        private string? _filePath;
+        public string FilePath
+        {
+            get
+            {
+                return _filePath!;
+            }
+            set => _filePath = value ?? throw new ArgumentNullException();
+        }
 
 
         public FileLogger(string filePath)
         {
 
-            this.filePath = filePath;
+            this._filePath = filePath;
         }
 
         override
         public void Log(LogLevel logLevel, string message)
         {
-            TextWriter tw = new StreamWriter(filePath, true);
+            TextWriter tw = new StreamWriter(FilePath, true);
             
             string res = String.Format("{0} {1} {2}: {3}", DateTime.Now.ToString(), base.ClassName, logLevel, message);
 
