@@ -1,8 +1,0 @@
-1/18/2021 8:05:54 PM FileLoggerTests Error: the message 42
-1/18/2021 8:06:23 PM FileLoggerTests Error: the message 42
-1/18/2021 8:09:14 PM FileLoggerTests Error: the message 42
-1/18/2021 8:18:18 PM FileLoggerTests Error: the message 42
-1/18/2021 8:36:15 PM FileLoggerTests Error: the message 42
-1/18/2021 8:39:41 PM FileLoggerTests Error: the message 42
-1/18/2021 8:45:09 PM FileLoggerTests Error: the message 42
-1/18/2021 8:45:19 PM FileLoggerTests Error: the message 42
