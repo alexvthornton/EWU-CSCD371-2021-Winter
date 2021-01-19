@@ -10,7 +10,7 @@
             if(filePath is null)
                 return null;
 
-            return new FileLogger(filePath) {ClassName= className};
+            return new FileLogger(filePath) {ClassName = className};
         }
 
         public void ConfigureFileLogger(string filePath){

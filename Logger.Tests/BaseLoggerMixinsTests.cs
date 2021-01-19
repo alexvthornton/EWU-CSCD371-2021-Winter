@@ -24,7 +24,7 @@ namespace Logger.Tests
         {
             // Arrange
             var logger = new TestLogger();
-
+            
             // Act
             logger.Error("Message {0}", 42);
 
