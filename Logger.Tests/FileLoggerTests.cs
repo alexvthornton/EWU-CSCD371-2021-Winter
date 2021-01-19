@@ -18,7 +18,6 @@ namespace Logger.Tests
         #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         fileLogger.Error("the message {0}", 42);
         #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-        
 
         }
 

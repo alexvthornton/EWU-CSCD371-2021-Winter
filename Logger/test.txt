@@ -1,19 +1,8 @@
-1/18/2021 6:26:22 PM FileLoggerTests Error the message 42
-1/18/2021 6:26:33 PM FileLoggerTests Error the message 42
-1/18/2021 6:26:40 PM FileLoggerTests Error the message 42
-1/18/2021 6:26:45 PM FileLoggerTests Error the message 42
-1/18/2021 6:27:04 PM FileLoggerTests Error the message 42
-1/18/2021 6:29:32 PM FileLoggerTests Error the message 42
-1/18/2021 6:32:30 PM FileLoggerTests Error the message 42
-1/18/2021 6:34:34 PM FileLoggerTests Error: the message 42
-1/18/2021 6:37:21 PM FileLoggerTests Error: the message 42
-
-
-public string FilePath
-        {
-            get
-            {
-                return _filePath!;
-            }
-            set => _filePath = value ?? throw new ArgumentNullException();
-        }1/18/2021 7:34:52 PM FileLoggerTests Error: the message 42
+1/18/2021 8:05:54 PM FileLoggerTests Error: the message 42
+1/18/2021 8:06:23 PM FileLoggerTests Error: the message 42
+1/18/2021 8:09:14 PM FileLoggerTests Error: the message 42
+1/18/2021 8:18:18 PM FileLoggerTests Error: the message 42
+1/18/2021 8:36:15 PM FileLoggerTests Error: the message 42
+1/18/2021 8:39:41 PM FileLoggerTests Error: the message 42
+1/18/2021 8:45:09 PM FileLoggerTests Error: the message 42
+1/18/2021 8:45:19 PM FileLoggerTests Error: the message 42
