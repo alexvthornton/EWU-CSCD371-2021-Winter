@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace Logger.Tests
 {
@@ -43,20 +44,19 @@ namespace Logger.Tests
         public void Log_ValidFile_appendToFile()
         {
             LogFactory? lf = new LogFactory();
+
             lf.ConfigureFileLogger("realFile.txt");
+
             FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(this.GetType().Name);
-            
              
             if(fileLogger != null && !string.IsNullOrEmpty(fileLogger.FilePath))
             {
-                fileLogger.Log(LogLevel.Error, "message");
+                fileLogger.Log(LogLevel.Error,  "This is a test message");
             }
-            
-            
+  
+            string lastLine = File.ReadLines("realFile.txt").Last();
+
+             Assert.AreEqual($"{DateTime.Now} {this.GetType().Name} {LogLevel.Error}: This is a test message", lastLine);
         }
-
-
-
-
     }
 }
