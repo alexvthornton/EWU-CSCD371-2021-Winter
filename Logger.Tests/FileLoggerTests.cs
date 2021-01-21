@@ -47,7 +47,7 @@ namespace Logger.Tests
 
             lf.ConfigureFileLogger("realFile.txt");
 
-            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(this.GetType().Name);
+            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(nameof(FileLoggerTests));
              
             if(fileLogger != null && !string.IsNullOrEmpty(fileLogger.FilePath))
             {
@@ -56,7 +56,7 @@ namespace Logger.Tests
   
             string lastLine = File.ReadLines("realFile.txt").Last();
 
-             Assert.AreEqual($"{DateTime.Now} {this.GetType().Name} {LogLevel.Error}: This is a test message", lastLine);
+             Assert.AreEqual($"{DateTime.Now} {nameof(FileLoggerTests)} {LogLevel.Error}: This is a test message", lastLine);
         }
     }
 }

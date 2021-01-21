@@ -10,7 +10,7 @@ namespace Logger.Tests
         public void CreateLogger_FileLoggerNotConfigured_ReturnNull()
         {
             LogFactory? lf = new LogFactory();
-            BaseLogger? baseLogger = lf.CreateLogger(this.GetType().Name);
+            BaseLogger? baseLogger = lf.CreateLogger(nameof(LogFactoryTests));
 
             Assert.IsNull(baseLogger);
         }
@@ -20,7 +20,7 @@ namespace Logger.Tests
         {
             LogFactory? lf = new LogFactory();
             lf.ConfigureFileLogger("Path");
-            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(this.GetType().Name);
+            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(nameof(LogFactoryTests));
             
             string res = "";
             if(fileLogger != null && !string.IsNullOrEmpty(fileLogger.FilePath))
@@ -35,7 +35,7 @@ namespace Logger.Tests
         {
             LogFactory? lf = new LogFactory();
             lf.ConfigureFileLogger("Path");
-            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(this.GetType().Name);
+            FileLogger? fileLogger = (FileLogger?)lf.CreateLogger(nameof(LogFactoryTests));
             
             string res = "";
             if(fileLogger != null && !string.IsNullOrEmpty(fileLogger.ClassName))
@@ -43,7 +43,7 @@ namespace Logger.Tests
                 res = fileLogger.ClassName;
             }
 
-            Assert.AreEqual(this.GetType().Name, res);
+            Assert.AreEqual(nameof(LogFactoryTests), res);
         }
 
 
