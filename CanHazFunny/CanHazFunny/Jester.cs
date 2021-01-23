@@ -14,12 +14,11 @@ namespace CanHazFunny
 
         public void TellJoke(){
 
-            string joke = jokeService.GetJoke();
+            string joke = this.jokeService.GetJoke();
             while(joke.Contains("Chuck Norris")){
-                joke = jokeService.GetJoke();
+                joke = this.jokeService.GetJoke();
             }
-
-            JokeOutput.printJoke(joke);
+            this.jokeOutput.printJoke(joke);
         }
 
     }
