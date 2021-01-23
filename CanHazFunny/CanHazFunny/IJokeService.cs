@@ -1,0 +1,5 @@
+
+interface IJokeService
+{
+    string GetJoke();
+}
