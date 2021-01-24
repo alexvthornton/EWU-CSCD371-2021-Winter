@@ -1,3 +1,5 @@
+using System;
+
 namespace CanHazFunny
 {
     public class Jester
@@ -6,8 +8,9 @@ namespace CanHazFunny
         private IJokeOutput jokeOutput;
         public Jester(IJokeService jokeService, IJokeOutput jokeOutput)
         {
+            if(jokeService == null){throw new ArgumentNullException();}
+            else if(jokeOutput == null){throw new ArgumentNullException();}
 
-            //do null check
             this.jokeService = jokeService;
             this.jokeOutput = jokeOutput;
         }
