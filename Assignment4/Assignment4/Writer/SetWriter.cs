@@ -1,22 +1,60 @@
 using System;
 using System.IO;
-using System.Linq;
-using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Assignment4.Writer
 {
-    public class SetWriter: IDispoable
+    public class SetWriter: IDisposable
     {
-        private StreamWriter streamWriter;
 
-        public SetWriter(File file)
+        bool disposed = false;
+
+        private StreamWriter? writer;
+
+        public StreamWriter Writer{
+            get
+            {
+                return writer!;
+            }
+            private set => writer = value??throw new ArgumentNullException();
+        }
+        public SetWriter(string filePath)
         {
-            this.streamWriter = new StreamWriter(file);
+            //null check
+            this.writer = new StreamWriter(filePath);
         }
 
-        public WriteToFile(NumSet numSet){
-            
+        public void WriteToFile(NumSet numSet)
+        {
+            //null check
+            using(this.Writer)
+            {
+                this.Writer.WriteLine(numSet.ToString());
+            }
         }
         
+        // Flag: Has Dispose already been called?
+   
+
+        // Public implementation of Dispose pattern callable by consumers.
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing) {
+                // Free any other managed objects here.
+                //
+            }
+
+            disposed = true;
+        }
     }
 }

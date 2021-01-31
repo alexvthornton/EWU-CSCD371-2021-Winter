@@ -59,10 +59,10 @@ namespace Assignment4
         {
             if (first is null && second is null) return true;
             if (first is null ^ second is null) return false;
-            return first.Equals(second);
+            return first!.Equals(second);
         }
 
-        public static bool operator !=(Pony first, Pony second)
+        public static bool operator !=(NumSet first, NumSet second)
             => !(first == second);
 
 
