@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 
 namespace Assignment4.Writer
 {
-    public class SetWriter: IDisposable
+    public sealed class SetWriter: IDisposable
     {
-
-        bool disposed = false;
-
+        
+        private bool !_DisposedValue = false;
+        
         private StreamWriter? writer;
 
         public StreamWriter Writer{
@@ -18,22 +18,26 @@ namespace Assignment4.Writer
             }
             private set => writer = value??throw new ArgumentNullException();
         }
+        
         public SetWriter(string filePath)
         {
-            //null check
+             if(filePath is null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
             this.writer = new StreamWriter(filePath);
         }
 
-        public void WriteToFile(NumSet numSet)
+        public void WriteSet(NumSet numSet)
         {
-            //null check
-            using(this.Writer)
+            if(numSet is null)
             {
-                this.Writer.WriteLine(numSet.ToString());
+                throw new ArgumentNullException(nameof(numSet));
             }
+
+            this.Writer.WriteLine(numSet.ToString());
         }
-        
-        // Flag: Has Dispose already been called?
    
 
         // Public implementation of Dispose pattern callable by consumers.
@@ -46,15 +50,14 @@ namespace Assignment4.Writer
         // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
-            if (disposed)
-                return;
+            if (!_DisposedValue)
+            {
+                if (disposing) {
+                    Writer.Dispose();
+                }
 
-            if (disposing) {
-                // Free any other managed objects here.
-                //
+                _DisposedValue = true;
             }
-
-            disposed = true;
         }
     }
 }

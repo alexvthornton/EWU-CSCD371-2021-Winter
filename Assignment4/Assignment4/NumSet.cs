@@ -44,15 +44,13 @@ namespace Assignment4
 
             int res = 0;
             int[] setArr = this.ToArray();
-            
-            Array.Sort(setArr);
 
             for(int i = 0; i < setArr.Length; i++)
             {
-                res = HashCode.Combine(res, setArr[i]);
+               res += setArr[i];
             }
 
-            return res;
+            return res+=setArr.Length;
         }
 
         public static bool operator ==(NumSet first, NumSet second)
