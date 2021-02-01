@@ -19,6 +19,11 @@ namespace Assignment4
 
         public NumSet(params int[] arr)
         {
+            if(arr is null)
+            {
+                throw new ArgumentNullException(nameof(arr));
+            }
+
             this.set = new HashSet<int>(arr);
         }
 
@@ -38,7 +43,6 @@ namespace Assignment4
             return numSet.Set.IsSubsetOf(this.Set) && this.Set.IsSubsetOf(numSet.Set);
         }
 
-        //private gethashcode
         public override int GetHashCode()
         {
 
@@ -66,10 +70,7 @@ namespace Assignment4
 
         public int[] ToArray()
         {   
-            if(set is null){
-                throw new ArgumentNullException();
-            }
-            return set.ToArray();
+            return Set.ToArray();
         }
 
         public override string ToString()

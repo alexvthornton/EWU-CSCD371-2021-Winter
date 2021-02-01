@@ -7,7 +7,7 @@ namespace Assignment4.Writer
     public sealed class SetWriter: IDisposable
     {
         
-        private bool !_DisposedValue = false;
+        private bool _DisposedValue = false;
         
         private StreamWriter? writer;
 
@@ -18,7 +18,7 @@ namespace Assignment4.Writer
             }
             private set => writer = value??throw new ArgumentNullException();
         }
-        
+
         public SetWriter(string filePath)
         {
              if(filePath is null)
@@ -48,7 +48,7 @@ namespace Assignment4.Writer
         }
 
         // Protected implementation of Dispose pattern.
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!_DisposedValue)
             {
