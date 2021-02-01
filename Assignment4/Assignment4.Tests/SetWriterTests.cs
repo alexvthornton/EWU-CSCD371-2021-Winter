@@ -11,19 +11,56 @@ namespace Assignment4.Tests
     public class SetWriterTests
     {
 
-
         [TestMethod]
-        public void test()
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SetWriter_NullFilePath_ArgumentNullException()
         {
-            
-            NumSet ns1 = new NumSet(8, 4, 2, 1, 2, 2, 34, 3, 5, 6, 32 ,23, 1, 34, 55, 6);
+            string path = Path.GetTempFileName();
 
-            SetWriter sw = new SetWriter("/Users/alexthornton/Documents/College/CSCD371/EWU-CSCD371-2021-Winter/Assignment4/testFile.txt");
+            NumSet ns1 = new NumSet(12, 43, 6, 19, 2);
+
+            using (SetWriter sw = new SetWriter(null!))
             sw.WriteSet(ns1);
-
-            Assert.AreEqual(ns1.GetHashCode(), ns1.GetHashCode());
         }
 
+        [TestMethod]
+        public void SetWriter_Path_SavesStreamWriter()
+        {
+            string path = Path.GetTempFileName();
+
+            using(SetWriter setWriter = new SetWriter(path))
+            using(StreamWriter streamWriter = new StreamWriter(path))
+
+            Assert.AreEqual(setWriter.Writer.GetType(), streamWriter.GetType());
+        }
+
+        [TestMethod]
+        public void WriteSet_ValidSet_EqualResult()
+        {
+            string path = Path.GetTempFileName();
+
+            NumSet ns1 = new NumSet(12, 43, 6, 19, 2);
+
+            using (SetWriter sw = new SetWriter(path))
+            sw.WriteSet(ns1);
+
+            string lastLine = File.ReadLines(path).Last();
+
+            Assert.AreEqual(lastLine, "{12, 43, 6, 19, 2}");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void WriteSet_NullSet_EqualResult()
+        {
+            string path = Path.GetTempFileName();
+
+            NumSet ns1 = new NumSet(null!);
+
+            using (SetWriter sw = new SetWriter(path))
+            sw.WriteSet(ns1);
+
+        }
 
     }
 }
