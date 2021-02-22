@@ -197,7 +197,20 @@ namespace GenericsHomework
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return this.GetEnumerator();
+            return GetEnumerator();
+        }
+
+
+        public IEnumerable<T> ChildItems(int maximum)
+        {
+            if (maximum > this.Size() || maximum < 0)
+                throw new ArgumentOutOfRangeException("The max index cannot be negative or greater than the size of the node list");
+
+            Node<T> cur = this;
+            for (int i =0; i < maximum; cur = cur.Next, i++)
+            {
+                yield return cur.Data;
+            }
         }
     }
 }

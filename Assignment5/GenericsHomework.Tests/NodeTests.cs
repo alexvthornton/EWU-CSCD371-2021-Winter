@@ -67,6 +67,40 @@ namespace GenericsHomework.Tests
             string actual = $"{list.ToString()} {list.Next.ToString()} {list.Next.Next.ToString()} {list.Next.Next.Next.ToString()} {list.Next.Next.Next.Next.ToString()}"; 
             Assert.AreEqual<string>("First Second Third Fourth First", actual);
         }
+
+        [TestMethod]
+        public void ChildItems_Index3_Given4StringNodes_EqualsToExpectedString()
+        {
+            string actual = "";
+            Node<string> list = CreateString4NodeList("First", "Second", "Third", "Fourth"); 
+            IEnumerable<string> childItems = list.ChildItems(3);
+            foreach (string item in childItems)
+                actual+=item+" ";
+            Assert.AreEqual<string>("First Second Third ", actual);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ChildItems_GivenIndex5_4StringNodes_ThrowsArgumentOutOfRangeExecption()
+        {
+            Node<string> list = CreateString4NodeList("First", "Second", "Third", "Fourth"); 
+            IEnumerable<string> childItems = list.ChildItems(6);
+            string actual = "";
+            foreach (string item in childItems)
+                actual+=item+" ";
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void ChildItems_GivenIndexNegative_4StringNodes_ThrowsArgumentOutOfRangeExecption()
+        {
+            Node<string> list = CreateString4NodeList("First", "Second", "Third", "Fourth"); 
+            IEnumerable<string> childItems = list.ChildItems(-1);
+            string actual = "";
+            foreach (string item in childItems)
+                actual+=item+" ";
+        }
+
         [TestMethod]
         public void Clear_Given4StringNodesClearFromNode3_DeferencedNodes()
         {
