@@ -61,6 +61,19 @@ namespace Assignment.Tests
             }
         }
 
+         [TestMethod]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_IsSortedLinq()
+        {
+            var sampleData = new SampleData();
+
+            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            bool ordered = states.Zip(states.Skip(1), (cur, next) => new {cur, next}).All(item => string.Compare(item.cur, item.next)<0);
+
+            Assert.IsTrue(ordered);
+        
+        }
+
         [TestMethod]
         public void GetAggregateSortedListOfStatesUsingCsvRows_EqualsJoinGetUniqueSortedListOfStatesGivenCsvRows()
         {
