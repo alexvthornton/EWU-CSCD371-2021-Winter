@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace GenericsHomework
 {
-    public class Node<T> : ICollection<T>
+    public class Node<T> : IEnumerable<T>
     {
         private Node<T>? _Next;
         private T? _Data;
@@ -197,7 +197,7 @@ namespace GenericsHomework
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
 
