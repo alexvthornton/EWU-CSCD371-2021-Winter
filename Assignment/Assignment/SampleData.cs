@@ -7,12 +7,21 @@ namespace Assignment
 {
     public class SampleData : ISampleData
     {
+
+        private const int idColumnNumber = 0;
+        private const int firstNameColumnNumber = 1;
+        private const int lastNameColumnNumber = 2;
+        private const int emailColumnNumber = 3;
+        private const int streetAddressColumnNumber = 4;
+        private const int cityColumnNumber = 5;
+        private const int stateColumnNumber = 6;
+        private const int zipColumnNumber = 7;
         // 1.
         public IEnumerable<string> CsvRows => File.ReadAllLines(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.Parent!.FullName, "Assignment" , "People.csv")).Skip(1);
 
 
         // 2.
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() => CsvRows.Select(line=>line.Split(",")[6]).Distinct().OrderBy(state=>state);
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() => CsvRows.Select(line=>line.Split(",")[stateColumnNumber]).Distinct().OrderBy(state=>state);
 
 
         // 3.
@@ -21,8 +30,8 @@ namespace Assignment
 
         // 4.
         // Ordered by State, City, ZipCode
-        public IEnumerable<IPerson> People => CsvRows.Select(line => line.Split(",")).OrderBy(line => line[6]).ThenBy(line => line[5]).ThenBy(line => line[7])
-            .Select(person => new Person(person[1], person[2], new Address(person[4], person[5], person[6], person[7]), person[3]));
+        public IEnumerable<IPerson> People => CsvRows.Select(line => line.Split(",")).OrderBy(line => line[stateColumnNumber]).ThenBy(line => line[cityColumnNumber]).ThenBy(line => line[zipColumnNumber])
+            .Select(person => new Person(person[firstNameColumnNumber], person[lastNameColumnNumber], new Address(person[streetAddressColumnNumber], person[cityColumnNumber], person[stateColumnNumber], person[zipColumnNumber]), person[emailColumnNumber]));
 
 
         // 5.
