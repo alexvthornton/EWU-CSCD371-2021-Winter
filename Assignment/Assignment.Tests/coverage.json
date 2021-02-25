@@ -1,0 +1,458 @@
+{
+  "Assignment.Interfaces.dll": {},
+  "Assignment.dll": {
+    "/home/mia/OneDrive/CodeWorkspace/NET/Alex_Mia_CSCD371/Assignment/Assignment/Address.cs": {
+      "Assignment.Address": {
+        "System.String Assignment.Address::get_StreetAddress()": {
+          "Lines": {
+            "12": 200
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Address::get_City()": {
+          "Lines": {
+            "13": 250
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Address::get_State()": {
+          "Lines": {
+            "14": 300
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Address::get_Zip()": {
+          "Lines": {
+            "15": 250
+          },
+          "Branches": []
+        },
+        "System.Void Assignment.Address::.ctor(System.String,System.String,System.String,System.String)": {
+          "Lines": {
+            "5": 200,
+            "6": 200,
+            "7": 200,
+            "8": 200,
+            "9": 200,
+            "10": 200,
+            "11": 200
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/mia/OneDrive/CodeWorkspace/NET/Alex_Mia_CSCD371/Assignment/Assignment/Node.cs": {
+      "Assignment.Node`1": {
+        "T Assignment.Node`1::get_Data()": {
+          "Lines": {
+            "15": 7,
+            "16": 7,
+            "17": 7
+          },
+          "Branches": []
+        },
+        "System.Void Assignment.Node`1::set_Data(T)": {
+          "Lines": {
+            "19": 0,
+            "20": 0,
+            "21": 0
+          },
+          "Branches": [
+            {
+              "Line": 20,
+              "Offset": 10,
+              "EndOffset": 12,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 20,
+              "Offset": 10,
+              "EndOffset": 23,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            }
+          ]
+        },
+        "Assignment.Node`1<T> Assignment.Node`1::get_Next()": {
+          "Lines": {
+            "27": 63,
+            "28": 63,
+            "29": 63
+          },
+          "Branches": []
+        },
+        "System.Void Assignment.Node`1::set_Next(Assignment.Node`1<T>)": {
+          "Lines": {
+            "32": 12,
+            "33": 12,
+            "34": 12,
+            "35": 12
+          },
+          "Branches": [
+            {
+              "Line": 34,
+              "Offset": 16,
+              "EndOffset": 18,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 34,
+              "Offset": 16,
+              "EndOffset": 30,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 12
+            }
+          ]
+        },
+        "System.Int32 Assignment.Node`1::Size()": {
+          "Lines": {
+            "45": 3,
+            "46": 3,
+            "47": 3,
+            "48": 12,
+            "49": 9,
+            "50": 9,
+            "51": 9,
+            "52": 9,
+            "53": 3,
+            "54": 3
+          },
+          "Branches": [
+            {
+              "Line": 48,
+              "Offset": 34,
+              "EndOffset": 12,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 9
+            },
+            {
+              "Line": 48,
+              "Offset": 34,
+              "EndOffset": 36,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            }
+          ]
+        },
+        "Assignment.Node`1<T> Assignment.Node`1::Insert(T)": {
+          "Lines": {
+            "57": 0,
+            "58": 0,
+            "59": 0,
+            "61": 0,
+            "62": 0
+          },
+          "Branches": []
+        },
+        "Assignment.Node`1<T> Assignment.Node`1::Add(T)": {
+          "Lines": {
+            "65": 12,
+            "66": 12,
+            "67": 12,
+            "68": 12,
+            "69": 28,
+            "70": 16,
+            "71": 16,
+            "72": 16,
+            "73": 16,
+            "75": 12,
+            "76": 12,
+            "77": 12
+          },
+          "Branches": [
+            {
+              "Line": 69,
+              "Offset": 41,
+              "EndOffset": 14,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 16
+            },
+            {
+              "Line": 69,
+              "Offset": 41,
+              "EndOffset": 43,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 12
+            }
+          ]
+        },
+        "System.String Assignment.Node`1::ToString()": {
+          "Lines": {
+            "79": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.IEnumerator Assignment.Node`1::System.Collections.IEnumerable.GetEnumerator()": {
+          "Lines": {
+            "93": 0,
+            "94": 0,
+            "95": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<T> Assignment.Node`1::ChildItems(System.Int32)": {
+          "Lines": {
+            "98": 3,
+            "99": 3,
+            "100": 2,
+            "101": 1,
+            "110": 1
+          },
+          "Branches": [
+            {
+              "Line": 99,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            },
+            {
+              "Line": 99,
+              "Offset": 33,
+              "EndOffset": 46,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 99,
+              "Offset": 49,
+              "EndOffset": 51,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 99,
+              "Offset": 49,
+              "EndOffset": 62,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            }
+          ]
+        },
+        "System.Void Assignment.Node`1::.ctor(T)": {
+          "Lines": {
+            "38": 16,
+            "39": 16,
+            "40": 16,
+            "41": 16,
+            "42": 16
+          },
+          "Branches": [
+            {
+              "Line": 41,
+              "Offset": 24,
+              "EndOffset": 26,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 41,
+              "Offset": 24,
+              "EndOffset": 37,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 16
+            }
+          ]
+        }
+      },
+      "Assignment.Node`1/<GetEnumerator>d__13": {
+        "System.Boolean Assignment.Node`1/<GetEnumerator>d__13::MoveNext()": {
+          "Lines": {
+            "82": 1,
+            "83": 1,
+            "85": 1,
+            "86": 8,
+            "87": 3,
+            "88": 3,
+            "89": 3,
+            "90": 1
+          },
+          "Branches": [
+            {
+              "Line": 86,
+              "Offset": 178,
+              "EndOffset": 107,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            },
+            {
+              "Line": 86,
+              "Offset": 178,
+              "EndOffset": 180,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "Assignment.Node`1/<>c__DisplayClass15_0/<<ChildItems>g__GetChildItems|0>d": {
+        "System.Boolean Assignment.Node`1/<>c__DisplayClass15_0/<<ChildItems>g__GetChildItems|0>d::MoveNext()": {
+          "Lines": {
+            "103": 1,
+            "104": 1,
+            "105": 11,
+            "106": 3,
+            "107": 3,
+            "108": 3,
+            "109": 1
+          },
+          "Branches": [
+            {
+              "Line": 103,
+              "Offset": 8,
+              "EndOffset": 12,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            },
+            {
+              "Line": 103,
+              "Offset": 14,
+              "EndOffset": 22,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 103,
+              "Offset": 8,
+              "EndOffset": 24,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            },
+            {
+              "Line": 105,
+              "Offset": 147,
+              "EndOffset": 58,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 3
+            },
+            {
+              "Line": 103,
+              "Offset": 14,
+              "EndOffset": 85,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 3
+            },
+            {
+              "Line": 105,
+              "Offset": 147,
+              "EndOffset": 149,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "/home/mia/OneDrive/CodeWorkspace/NET/Alex_Mia_CSCD371/Assignment/Assignment/Person.cs": {
+      "Assignment.Person": {
+        "System.String Assignment.Person::get_FirstName()": {
+          "Lines": {
+            "16": 251
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Person::get_LastName()": {
+          "Lines": {
+            "17": 251
+          },
+          "Branches": []
+        },
+        "Assignment.IAddress Assignment.Person::get_Address()": {
+          "Lines": {
+            "18": 400
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Person::get_EmailAddress()": {
+          "Lines": {
+            "19": 350
+          },
+          "Branches": []
+        },
+        "System.String Assignment.Person::ToString()": {
+          "Lines": {
+            "22": 50
+          },
+          "Branches": []
+        },
+        "System.Void Assignment.Person::.ctor(System.String,System.String,Assignment.IAddress,System.String)": {
+          "Lines": {
+            "8": 200,
+            "9": 200,
+            "10": 200,
+            "11": 200,
+            "12": 200,
+            "13": 200,
+            "14": 200
+          },
+          "Branches": []
+        }
+      }
+    },
+    "/home/mia/OneDrive/CodeWorkspace/NET/Alex_Mia_CSCD371/Assignment/Assignment/SampleData.cs": {
+      "Assignment.SampleData": {
+        "System.Collections.Generic.IEnumerable`1<System.String> Assignment.SampleData::get_CsvRows()": {
+          "Lines": {
+            "20": 11
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<System.String> Assignment.SampleData::GetUniqueSortedListOfStatesGivenCsvRows()": {
+          "Lines": {
+            "24": 467
+          },
+          "Branches": []
+        },
+        "System.String Assignment.SampleData::GetAggregateSortedListOfStatesUsingCsvRows()": {
+          "Lines": {
+            "28": 54
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<Assignment.IPerson> Assignment.SampleData::get_People()": {
+          "Lines": {
+            "33": 804,
+            "34": 204
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<System.ValueTuple`2<System.String,System.String>> Assignment.SampleData::FilterByEmailAddress(System.Predicate`1<System.String>)": {
+          "Lines": {
+            "38": 103
+          },
+          "Branches": []
+        },
+        "System.String Assignment.SampleData::GetAggregateListOfStatesGivenPeopleCollection(System.Collections.Generic.IEnumerable`1<Assignment.IPerson>)": {
+          "Lines": {
+            "43": 77
+          },
+          "Branches": []
+        }
+      }
+    }
+  }
+}

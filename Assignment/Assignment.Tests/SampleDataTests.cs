@@ -8,45 +8,30 @@ namespace Assignment.Tests
 {
 
     [TestClass]
-    public class NodeTests
+    public class SampleDataTests
     {
         [TestMethod]
-        public void CsvRows_ForEach_IteratesThroughData()
+        public void CsvRows_ForEachCount_IteratesThroughCount()
         {
             var sampleData = new SampleData();
-            int result = 0;
-            foreach(string item in sampleData.CsvRows)
-            {
-                result++;
-            }
 
-            Assert.AreEqual<int>(50, result);
-
+            Assert.AreEqual<int>(50, sampleData.CsvRows.Count());
         }
 
         [TestMethod]
         public void GetUniqueSortedListOfStatesGivenCsvRows_IsUnique()
         {
-            // Using a hashset so as only to iterate once through CsvRows
-            // by adding each item from CsvRows to a hashset.
-            var statesSet = new HashSet<string>();
             var sampleData = new SampleData();
 
             IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
 
-            foreach (string item in states)
-            {
-                if (!statesSet.Add(item))
-                    Assert.Fail();
-            }
+            Assert.IsTrue(Enumerable.SequenceEqual(states.Distinct(), states));
         }
 
         [TestMethod]
         public void GetUniqueSortedListOfStatesGivenCsvRows_IsSorted()
         {
-            // Using a hashset so as only to iterate once through CsvRows
-            // by adding each item from CsvRows to a hashset.
-            var statesSet = new HashSet<string>();
+            var statesList = new List<string>();
             var sampleData = new SampleData();
 
             IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
@@ -55,23 +40,12 @@ namespace Assignment.Tests
             {
                 // Compares the previous item, which is the last item in the hashset,
                 // to the current item
-                if(statesSet.Count!=0 && item.CompareTo(statesSet.Last()) < 0)
+                if(statesList.Count!=0 && item.CompareTo(statesList.Last()) < 0)
+                {
                     Assert.Fail();
-                statesSet.Add(item);
+                }
+                statesList.Add(item);
             }
-        }
-
-         [TestMethod]
-        public void GetUniqueSortedListOfStatesGivenCsvRows_IsSortedLinq()
-        {
-            var sampleData = new SampleData();
-
-            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-
-            bool ordered = states.Zip(states.Skip(1), (cur, next) => new {cur, next}).All(item => string.Compare(item.cur, item.next)<0);
-
-            Assert.IsTrue(ordered);
-        
         }
 
         [TestMethod]
@@ -94,25 +68,21 @@ namespace Assignment.Tests
         }
 
         [TestMethod]
-        public void People_EqualToExpectedPersonString()
+        public void People_EqualToExpectedPersonStrings()
         {
             var sampleData = new SampleData();
-            string result = "\n", expected = "\n";
 
-            var people = sampleData.CsvRows.Select(line => line.Split(",")).OrderBy(line => line[6]).
-                ThenBy(line => line[5]).ThenBy(line => line[7]).
-                Select( line => new string[] { line[6], line[5], line[7], line[1]+" "+line[2], line[3]}).Select(line => string.Join(", ", line));
+            const int StateColumn=6, CityColumn=5, ZipColumn=7, FirstNameColumn=1, LastNameColumn=2; 
 
-            foreach (string line in people)
-            {
-                expected += line + "\n";
-            }
+            var people = sampleData.CsvRows.Select(line => line.Split(",")).OrderBy(line => line[StateColumn]).
+                ThenBy(line => line[CityColumn]).ThenBy(line => line[ZipColumn]).
+                Select( line => new string[] { line[StateColumn], line[CityColumn], line[ZipColumn], line[FirstNameColumn]+" "+line[LastNameColumn], line[3]}).Select(line => string.Join(", ", line));
 
-            foreach (Person item in sampleData.People)
-            {
-                result += PersonToString(item) + "\n";
-            }
+            string expected = Environment.NewLine+string.Join(Environment.NewLine, people);
 
+            // Uses Person.ToString()
+            string result = sampleData.People.Aggregate("",(result,person) => result +Environment.NewLine + person);
+            
             Assert.AreEqual<string>(expected, result);
         }
 
@@ -151,11 +121,6 @@ namespace Assignment.Tests
             string result = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
 
             Assert.AreEqual<string>(expected, result);
-        }
-
-        private string PersonToString(Person person)
-        {
-            return $"{person.Address.State}, {person.Address.City}, {person.Address.Zip}, {person.FirstName} {person.LastName}, {person.EmailAddress}";
         }
 
     }
