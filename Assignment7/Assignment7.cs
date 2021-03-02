@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Assignment7
 {
@@ -32,21 +33,18 @@ namespace Assignment7
         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, params string[] urls)
         {
             List<Task<int>> tasks = new List<Task<int>>();
-            Parallel.For(0, repetitions, i =>
+
+            return await Task.Run(() =>
             {
-                tasks.Add(DownloadTextAsync(urls));
+                Parallel.For(0, repetitions, i =>
+                {
+                    tasks.Add(DownloadTextAsync(urls));
+                });
+
+                return tasks.Sum(x => x.Result);
             });
-
-            var results = await Task.WhenAll(tasks);
-
-            int sum = 0;
-            for (int i = 0; i < results.Length; i++)
-            {
-                sum += results[i];
-            }
-
-            return sum;
         }
+
 
     }
 }
