@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Assignment7
@@ -24,7 +25,29 @@ namespace Assignment7
                 }
                 return total;
             });
+
         }
+
+
+        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, params string[] urls)
+        {
+            List<Task<int>> tasks = new List<Task<int>>();
+            Parallel.For(0, repetitions, i =>
+            {
+                tasks.Add(DownloadTextAsync(urls));
+            });
+
+            var results = await Task.WhenAll(tasks);
+
+            int sum = 0;
+            for (int i = 0; i < results.Length; i++)
+            {
+                sum += results[i];
+            }
+
+            return sum;
+        }
+
     }
 }
 
