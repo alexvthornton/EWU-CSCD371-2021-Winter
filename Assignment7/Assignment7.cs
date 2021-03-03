@@ -30,19 +30,25 @@ namespace Assignment7
         }
 
 
-        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, params string[] urls)
+         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<int> progress, params string[] urls)
         {
-            List<Task<int>> tasks = new List<Task<int>>();
-
-            return await Task.Run(() =>
+              return await Task.Run( async () =>
             {
-                Parallel.For(0, repetitions, i =>
+                int total = 0;
+                int count = 1;
+                for(int i = 0; i <= repetitions; i++)
                 {
-                    tasks.Add(DownloadTextAsync(urls));
-                });
+                    total += await DownloadTextAsync(urls);
 
-                return tasks.Sum(x => x.Result);
+                    if (progress != null)
+                    {
+                    progress.Report((double) count++ / 10);
+                    }
+           
+                }
+                return total;
             });
+               
         }
 
 
