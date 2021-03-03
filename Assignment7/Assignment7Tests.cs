@@ -1,4 +1,3 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assignment7
@@ -17,7 +16,7 @@ namespace Assignment7
         public void Test_DownloadTextRepeatedlyAsync()
         {
            
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(10, new Progress<int>(x => Console.Write(x)), "https://facebook.com", "https://facebook.com").Result);
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(10, "https://facebook.com", "https://facebook.com").Result);
         }
         
     }
