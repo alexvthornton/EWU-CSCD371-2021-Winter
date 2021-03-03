@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Linq;
 
 namespace Assignment7
@@ -30,13 +31,13 @@ namespace Assignment7
         }
 
 
-         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<int> progress, params string[] urls)
+         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, CancellationToken cancellationToken, params string[] urls)
         {
               return await Task.Run( async () =>
             {
                 int total = 0;
                 int count = 1;
-                for(int i = 0; i <= repetitions; i++)
+                for(int i = 0; i <= repetitions && !cancellationToken.IsCancellationRequested; i++)
                 {
                     total += await DownloadTextAsync(urls);
 

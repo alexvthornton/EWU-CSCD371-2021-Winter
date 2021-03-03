@@ -1,3 +1,5 @@
+using System;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assignment7
@@ -15,8 +17,9 @@ namespace Assignment7
         [TestMethod]
         public void Test_DownloadTextRepeatedlyAsync()
         {
-           
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(10, "https://facebook.com", "https://facebook.com").Result);
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken token = tokenSource.Token;
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(10, new ProgressBar(),"https://facebook.com", "https://facebook.com").Result);
         }
         
     }
