@@ -51,7 +51,8 @@ namespace Assignment7
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(-10, new ProgressBar(), token, "https://facebook.com", "https://facebook.com").Result);
+            int repetitions = -10;
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), token, "https://facebook.com", "https://facebook.com").Result);
         }
 
         [TestMethod]
@@ -60,7 +61,42 @@ namespace Assignment7
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(10, null, token, "https://facebook.com", "https://facebook.com").Result);
+            int repetitions = 10;
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, null, token, "https://facebook.com", "https://facebook.com").Result);
+        }
+
+        [TestMethod]
+        public void DownloadTextRepeatedlyAsync_Cancel_TaskWillBeCancelled()
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken token = tokenSource.Token;
+            int repetitions = 10;
+            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => CancelTaskAfterProgress( .1, x, tokenSource)), token, "https://facebook.com", "https://facebook.com").Result;
+            //if the result falls between these numbers we know it started executing but did not finish
+            Assert.IsTrue(result > 100000 && result < 1000000);
+        }
+
+        public static void CancelTaskAfterProgress(double progress, double x, CancellationTokenSource tokenSource)
+        {
+            if(x > progress){
+                tokenSource.Cancel();
+            }
+
+        }
+
+        [TestMethod]
+        public void DownloadTextRepeatedlyAsync_ValidParams_SimiarResultSynchronous()
+        {
+            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationToken token = tokenSource.Token;
+            int repetitions = 3;
+            int total = 0;
+            for(int i = 0; i < repetitions; i++){
+                total += DownloadText("https://facebook.com", "https://facebook.com");
+            }
+            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), token, "https://facebook.com", "https://facebook.com").Result;
+        
+            Assert.IsTrue(Math.Abs(total - result) < 3000);
         }
         
     }

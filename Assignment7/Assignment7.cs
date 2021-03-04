@@ -52,13 +52,13 @@ namespace Assignment7
             {
                 int total = 0;
                 int count = 1;
-                for(int i = 0; i <= repetitions && !cancellationToken.IsCancellationRequested; i++)
+                for(int i = 0; i < repetitions && !cancellationToken.IsCancellationRequested; i++)
                 {
                     total += await DownloadTextAsync(urls);
 
                     if (progress != null)
                     {
-                    progress.Report((double) count++ / 10);
+                    progress.Report((double) count++ / repetitions);
                     }
            
                 }
