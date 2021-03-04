@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -49,31 +50,34 @@ namespace Assignment7
         [ExpectedException(typeof(AggregateException))]
         public void DownloadTextRepeatedlyAsync_negativeRepetitions_AggregateException()
         {
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
-            CancellationToken token = tokenSource.Token;
+             CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ParallelOptions parallelOptions = new ParallelOptions();
+            parallelOptions.CancellationToken = tokenSource.Token;
             int repetitions = -10;
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), token, "https://facebook.com", "https://facebook.com").Result);
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), parallelOptions, "https://facebook.com", "https://facebook.com").Result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(AggregateException))]
         public void DownloadTextRepeatedlyAsync_NullProgress_AggregateException()
         {
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
-            CancellationToken token = tokenSource.Token;
+             CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ParallelOptions parallelOptions = new ParallelOptions();
+            parallelOptions.CancellationToken = tokenSource.Token;
             int repetitions = 10;
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, null!, token, "https://facebook.com", "https://facebook.com").Result);
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, null!, parallelOptions, "https://facebook.com", "https://facebook.com").Result);
         }
 
         [TestMethod]
+        [ExpectedException(typeof(AggregateException))]
         public void DownloadTextRepeatedlyAsync_Cancel_TaskWillBeCancelled()
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            CancellationToken token = tokenSource.Token;
+            ParallelOptions parallelOptions = new ParallelOptions();
+            parallelOptions.CancellationToken = tokenSource.Token;
             int repetitions = 10;
-            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => CancelTaskAfterProgress( .1, x, tokenSource)), token, "https://facebook.com", "https://facebook.com").Result;
-            //if the result falls between these numbers we know it started executing but did not finish
-            Assert.IsTrue(result > 100000 && result < 1000000);
+            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => CancelTaskAfterProgress( .1, x, tokenSource)),  parallelOptions, "https://facebook.com", "https://facebook.com").Result;
+            
         }
 
         public static void CancelTaskAfterProgress(double progress, double x, CancellationTokenSource tokenSource)
@@ -87,14 +91,15 @@ namespace Assignment7
         [TestMethod]
         public void DownloadTextRepeatedlyAsync_ValidParams_SimiarResultSynchronous()
         {
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
-            CancellationToken token = tokenSource.Token;
+             CancellationTokenSource tokenSource = new CancellationTokenSource();
+            ParallelOptions parallelOptions = new ParallelOptions();
+            parallelOptions.CancellationToken = tokenSource.Token;
             int repetitions = 3;
             int total = 0;
             for(int i = 0; i < repetitions; i++){
                 total += DownloadText("https://facebook.com", "https://facebook.com");
             }
-            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), token, "https://facebook.com", "https://facebook.com").Result;
+            int result = Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, new Progress<double>( x => Console.WriteLine(x)), parallelOptions, "https://facebook.com", "https://facebook.com").Result;
         
             Assert.IsTrue(Math.Abs(total - result) < 3000);
         }

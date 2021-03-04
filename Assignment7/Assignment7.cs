@@ -12,6 +12,7 @@ namespace Assignment7
     static class methods
     {
 
+        public static Object obj  = new Object();
         public static async Task<int> DownloadTextAsync(params string[] urls)
         {
             // calls System.Next.WebClient.DownloadString() 
@@ -39,7 +40,7 @@ namespace Assignment7
         }
 
 
-          public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, CancellationToken cancellationToken, params string[] urls)
+          public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, ParallelOptions po, params string[] urls)
         {
             if(repetitions < 0){
                 throw new ArgumentException(nameof(repetitions));
@@ -48,20 +49,24 @@ namespace Assignment7
                  throw new ArgumentNullException(nameof(progress));
             }
 
-              return await Task.Run( async () =>
+              return await Task.Run( () =>
             {
                 int total = 0;
                 int count = 1;
-                for(int i = 0; i < repetitions && !cancellationToken.IsCancellationRequested; i++)
-                {
-                    total += await DownloadTextAsync(urls);
+                Parallel.For(0, repetitions, po, (i, state) => {
+                
+                    po.CancellationToken.ThrowIfCancellationRequested();
+
+                    lock(obj)
+                    {
+                        total += DownloadTextAsync(urls).Result;
+                    }
 
                     if (progress != null)
                     {
                     progress.Report((double) count++ / repetitions);
                     }
-           
-                }
+                });
                 return total;
             });
                
