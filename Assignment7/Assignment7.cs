@@ -16,14 +16,22 @@ namespace Assignment7
         {
             // calls System.Next.WebClient.DownloadString() 
             // returns total number of characters downloaded from all urls
+
+            if(urls is null){
+                throw new ArgumentNullException(nameof(urls));
+            }
+
             var client = new WebClient();
 
-            return await Task.Run(() =>
+            return await Task.Run( async () =>
             {
                 int total = 0;
                 foreach (string url in urls)
                 {
-                    total += client.DownloadString(url).Length;
+                    total += await Task.Run(() =>
+                    {   
+                        return client.DownloadString(url).Length;
+                    });
                 }
                 return total;
             });
@@ -31,8 +39,15 @@ namespace Assignment7
         }
 
 
-         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, CancellationToken cancellationToken, params string[] urls)
+          public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, CancellationToken cancellationToken, params string[] urls)
         {
+            if(repetitions < 0){
+                throw new ArgumentException(nameof(repetitions));
+            }
+            else if(progress is null){
+                 throw new ArgumentNullException(nameof(progress));
+            }
+
               return await Task.Run( async () =>
             {
                 int total = 0;
