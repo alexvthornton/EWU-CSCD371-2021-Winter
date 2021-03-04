@@ -1,18 +1,13 @@
 using System;
-using System.IO;
 using System.Net;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Threading;
-using System.Linq;
 
 namespace Assignment7
 {
 
-    static class methods
+    public static class AsyncDownload
     {
-
-        public static Object obj  = new Object();
+        private static readonly object Locker  = new ();
         public static async Task<int> DownloadTextAsync(params string[] urls)
         {
             // calls System.Next.WebClient.DownloadString() 
@@ -29,10 +24,7 @@ namespace Assignment7
                 int total = 0;
                 foreach (string url in urls)
                 {
-                    total += await Task.Run(() =>
-                    {   
-                        return client.DownloadString(url).Length;
-                    });
+                    total += await Task.Run(() => client.DownloadString(url).Length);
                 }
                 return total;
             });
@@ -40,32 +32,30 @@ namespace Assignment7
         }
 
 
-          public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, ParallelOptions po, params string[] urls)
+        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, ParallelOptions position, params string[] urls)
         {
+            if (progress == null) throw new ArgumentNullException(nameof(progress));
             if(repetitions < 0){
                 throw new ArgumentException(nameof(repetitions));
             }
-            else if(progress is null){
-                 throw new ArgumentNullException(nameof(progress));
+            if(progress is null){
+                throw new ArgumentNullException(nameof(progress));
             }
 
-              return await Task.Run( () =>
+            return await Task.Run( () =>
             {
                 int total = 0;
                 int count = 1;
-                Parallel.For(0, repetitions, po, (i, state) => {
+                Parallel.For(0, repetitions, position, (i, state) => {
                 
-                    po.CancellationToken.ThrowIfCancellationRequested();
+                    position.CancellationToken.ThrowIfCancellationRequested();
 
-                    lock(obj)
+                    lock(Locker)
                     {
                         total += DownloadTextAsync(urls).Result;
                     }
 
-                    if (progress != null)
-                    {
                     progress.Report((double) count++ / repetitions);
-                    }
                 });
                 return total;
             });
@@ -75,5 +65,3 @@ namespace Assignment7
 
     }
 }
-
-
