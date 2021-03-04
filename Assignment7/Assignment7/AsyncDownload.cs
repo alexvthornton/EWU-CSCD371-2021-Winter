@@ -32,7 +32,7 @@ namespace Assignment7
         }
 
 
-        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, ParallelOptions position, params string[] urls)
+        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, ParallelOptions parallelOptions, params string[] urls)
         {
             if (progress == null) throw new ArgumentNullException(nameof(progress));
             if(repetitions < 0){
@@ -46,9 +46,9 @@ namespace Assignment7
             {
                 int total = 0;
                 int count = 1;
-                Parallel.For(0, repetitions, position, (i, state) => {
+                Parallel.For(0, repetitions, parallelOptions, (i, state) => {
                 
-                    position.CancellationToken.ThrowIfCancellationRequested();
+                    parallelOptions.CancellationToken.ThrowIfCancellationRequested();
 
                     lock(Locker)
                     {
