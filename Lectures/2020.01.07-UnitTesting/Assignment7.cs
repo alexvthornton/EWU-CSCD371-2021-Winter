@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Threading;
 
+
 namespace Assignment7
 {
 
@@ -31,26 +32,25 @@ namespace Assignment7
 
         }
 
-
-        public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, params string[] urls)
+         public static async Task<int> DownloadTextRepeatedlyAsync(int repetitions, IProgress<double> progress, CancellationToken cancellationToken, params string[] urls)
         {
-            return await Task.Run( () =>
+              return await Task.Run( async () =>
             {
                 int total = 0;
                 int count = 1;
-                Parallel.For(0, repetitions, async i =>
+                for(int i = 0; i <= repetitions && !cancellationToken.IsCancellationRequested; i++)
                 {
-                    
-                    total += await DownloadTextAsync(urls); 
-                    
+                    total += await DownloadTextAsync(urls);
+
                     if (progress != null)
                     {
                     progress.Report((double) count++ / 10);
                     }
-            
-                });
+           
+                }
                 return total;
             });
+               
         }
 
 
