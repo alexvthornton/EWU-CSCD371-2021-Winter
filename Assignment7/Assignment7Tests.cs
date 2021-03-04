@@ -24,7 +24,7 @@ namespace Assignment7
         [ExpectedException(typeof(AggregateException))]
         public void DownloadTextAsync_NullUrl_AggregateException()
         {   
-            Console.Write(Assignment7.methods.DownloadTextAsync(null).Result);
+            Console.Write(Assignment7.methods.DownloadTextAsync(null!).Result);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace Assignment7
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
             int repetitions = 10;
-            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, null, token, "https://facebook.com", "https://facebook.com").Result);
+            Assert.AreEqual(0, Assignment7.methods.DownloadTextRepeatedlyAsync(repetitions, null!, token, "https://facebook.com", "https://facebook.com").Result);
         }
 
         [TestMethod]
