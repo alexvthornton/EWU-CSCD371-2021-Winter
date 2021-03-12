@@ -41,7 +41,7 @@
             VerticalAlignment="Center"
             TextWrapping="Wrap"
             Foreground="#eeeeee"
-            FontWeight="Bold"
+            FontWeight="DemiBold"
             FontSize="60"
             />
         <Button 
