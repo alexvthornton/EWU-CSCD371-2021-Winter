@@ -11,16 +11,118 @@
     <Window.Resources>
         <DataTemplate x:Key="ContactDetailsTemplate" DataType="{x:Type local:Contact}">
             <StackPanel>
-                <TextBlock Text="First Name"/>
-                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Last Name"/>
-                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Phone Number"/>
-                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Email Address"/>
-                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Twitter Name"/>
-                <TextBox Text="{Binding TwitterName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="First Name">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FirstName}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger  Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBlock Text="Last Name">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastName}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger  Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBlock Text="Phone Number">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding PhoneNumber}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger  Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBlock Text="Email Address">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding EmailAddress}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger  Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+                <TextBlock Text="Twitter Name">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding TwitterName}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Text="{Binding TwitterName, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Style.Triggers>
+                                <Trigger  Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+
+                
                 <TextBlock Text="Last Modified"/>
                 <TextBlock Text="{Binding LastModified, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
@@ -60,9 +162,11 @@
             <ContentControl Content="{Binding SelectedContact}"
                             ContentTemplate="{StaticResource ContactDetailsTemplate}">
                 <ContentControl.Style>
-                    <Style>
+                    <Style TargetType="ContentControl">
                         <Style.Triggers>
-                            
+                            <Trigger  Property="Content" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </ContentControl.Style>
