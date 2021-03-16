@@ -17,6 +17,12 @@
                 <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Phone Number"/>
                 <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Email Address"/>
+                <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Twitter Name"/>
+                <TextBox Text="{Binding TwitterName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Last Modified"/>
+                <TextBlock Text="{Binding LastModified, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </DataTemplate>
 
@@ -51,7 +57,17 @@
                  ItemTemplate="{StaticResource ContactListTemplate}"/>
 
         <Grid Grid.Column="1">
-            <ContentControl Content="{Binding SelectedContact}"/>
+            <ContentControl Content="{Binding SelectedContact}"
+                            ContentTemplate="{StaticResource ContactDetailsTemplate}">
+                <ContentControl.Style>
+                    <Style>
+                        <Style.Triggers>
+                            
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+
         </Grid>
     </Grid>
 </Window>
