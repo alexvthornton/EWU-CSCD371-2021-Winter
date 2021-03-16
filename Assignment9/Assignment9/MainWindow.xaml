@@ -4,9 +4,54 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Assignment9"
+        d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
+    <Window.Resources>
+        <DataTemplate x:Key="ContactDetailsTemplate" DataType="{x:Type local:Contact}">
+            <StackPanel>
+                <TextBlock Text="First Name"/>
+                <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Last Name"/>
+                <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Phone Number"/>
+                <TextBox Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ContactListTemplate" DataType="{x:Type local:Contact}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="1">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="FirstName" />
+                            <Binding Path= "LastName" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+               
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+        
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ListBox ItemsSource="{Binding Contacts}" 
+                 FontSize="20" 
+                 SelectedItem="{Binding SelectedContact}"
+                 ItemTemplate="{StaticResource ContactListTemplate}"/>
+
+        <Grid Grid.Column="1">
+            <ContentControl Content="{Binding SelectedContact}"/>
+        </Grid>
     </Grid>
 </Window>
