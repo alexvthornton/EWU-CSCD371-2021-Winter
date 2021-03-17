@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Assignment9
 {
-    class BoolToEditSave : IValueConverter
+    public class BoolToEditSave : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
