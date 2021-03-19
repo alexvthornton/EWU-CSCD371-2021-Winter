@@ -136,7 +136,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="_New" Command="{Binding NewContactCommand}"/>
             <MenuItem Header="_Delete" Command="{Binding DeleteContactCommand}"/>
         </Menu>
@@ -144,7 +144,8 @@
         <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Contacts}" 
                  FontSize="20"
                  SelectedItem="{Binding SelectedContact}"
-                 ItemTemplate="{StaticResource ContactListTemplate}" SelectionChanged="ListBox_SelectionChanged">
+                 BorderThickness="0"
+                 ItemTemplate="{StaticResource ContactListTemplate}">
             <ListBox.InputBindings>
                 <KeyBinding Key="Delete" Command="{Binding DeleteContactCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
             </ListBox.InputBindings>

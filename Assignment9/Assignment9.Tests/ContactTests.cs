@@ -8,7 +8,7 @@ namespace Assignment9.Tests
     {
 
         [TestMethod]
-        public void FirstName_SetNewValue_EqualToNewValue()
+        public void SetProperty_FirstName_EqualToNewValue()
         {
            Contact contact = new();             
            contact.FirstName = "James";
@@ -16,7 +16,7 @@ namespace Assignment9.Tests
         }
 
         [TestMethod]
-        public void LastName_SetNewValue_EqualToNewValue()
+        public void SetProperty_LastName_EqualToNewValue()
         {
            Contact contact = new();             
            contact.LastName = "Smith";
@@ -24,7 +24,7 @@ namespace Assignment9.Tests
         }
 
         [TestMethod]
-        public void PhoneNumber_SetNewValue_EqualToNewValue()
+        public void SetProperty_PhoneNumber_EqualToNewValue()
         {
            Contact contact = new();             
            contact.PhoneNumber = "509-123-1234";
@@ -32,7 +32,7 @@ namespace Assignment9.Tests
         }
 
         [TestMethod]
-        public void EmailAddress_SetNewValue_EqualToNewValue()
+        public void SetProperty_EmailAddress_EqualToNewValue()
         {
            Contact contact = new();             
            contact.EmailAddress = "email@gmail.com";
@@ -40,11 +40,18 @@ namespace Assignment9.Tests
         }
 
         [TestMethod]
-        public void TwitterName_SetNewValue_EqualToNewValue()
+        public void SetProperty_TwitterName_EqualToNewValue()
         {
            Contact contact = new();             
            contact.TwitterName = "username";
            Assert.AreEqual("username", contact.TwitterName);
+        }
+
+        [TestMethod]
+        public void LastModified_IsTypeOfDateTime()
+        {
+           Contact contact = new();             
+           Assert.AreEqual(typeof(DateTime), contact.LastModified.GetType());
         }
 
         [TestMethod]
@@ -56,13 +63,6 @@ namespace Assignment9.Tests
            Assert.AreNotEqual(initialLastModified, contact.LastModified);
         }
         
-        [TestMethod]
-        public void LastModified_IsTypeOfDateTime()
-        {
-           Contact contact = new();             
-           Assert.AreEqual(typeof(DateTime), contact.LastModified.GetType());
-        }
-
         [TestMethod]
         public void LastModified_LastName_TimeChanged()
         {

@@ -5,8 +5,8 @@ namespace Assignment9
 {
     public class RelayCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
-        public Action ToggleEdit { get; }
+        public event EventHandler? CanExecuteChanged;
+        public Action Action { get; }
 
         public bool CanExecute(object parameter)
         {
@@ -15,14 +15,11 @@ namespace Assignment9
 
         public void Execute(object parameter)
         {
-            ToggleEdit.Invoke();
+            Action.Invoke();
         }
-
-        public RelayCommand(Action toggleEdit)
+        public RelayCommand(Action action)
         {
-            ToggleEdit = toggleEdit;
-
+            Action = action;
         }
     }
-
 }

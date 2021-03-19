@@ -23,11 +23,6 @@ namespace Assignment9
             InitializeComponent();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void CommandBinding_CanExecute(object sender, System.Windows.Input.CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -38,5 +33,9 @@ namespace Assignment9
             Close();
         }
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }
