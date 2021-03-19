@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Assignment9.Tests
@@ -9,87 +10,134 @@ namespace Assignment9.Tests
     public class MainWindowViewModelTests
     {
         [TestMethod]
-        public void EditCommand_ReturnsRelayCommand()
+        public void Contacts_ReturnsObservableContactCollection()
         {
-            var vm = new MainWindowViewModel();
-            Assert.AreEqual(typeof(RelayCommand), vm.EditCommand.GetType());
-        }
+            var viewModel = new MainWindowViewModel();
 
-        [TestMethod]
-        public void EditCommand_NotNull()
-        {
-            var vm = new MainWindowViewModel();
-            Assert.IsNotNull(vm.EditCommand);
-        }
-
-        [TestMethod]
-        public void EditCommand_True_False()
-        {
-            var vm = new MainWindowViewModel();
-            vm.Edit = true;
-            var editCommand = vm.EditCommand;
-
-            editCommand.Execute(null);
-
-            Assert.IsFalse(vm.Edit);
-        }
-
-        [TestMethod]
-        public void EditCommand_False_True()
-        {
-            var vm = new MainWindowViewModel();
-            vm.Edit = false;
-            var editCommand = vm.EditCommand;
-
-            editCommand.Execute(null);
-
-            Assert.IsTrue(vm.Edit);
-        }
-
-
-        [TestMethod]
-        public void Contacts_returnsContactList()
-        {
-            var vm = new MainWindowViewModel();
-
-            Assert.AreEqual(typeof(List<Contact>), vm.Contacts.GetType());
+            Assert.AreEqual(typeof(ObservableCollection<Contact>), viewModel.Contacts.GetType());
         }
 
         [TestMethod]
         public void EditGet_IntializedToFalse()
         {
-            var vm = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel();
 
-            Assert.IsFalse(vm.Edit);
+            Assert.IsFalse(viewModel.Edit);
         }
 
         [TestMethod]
         public void  SelectedContact_IntializedToNull()
         {
-            var vm = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel();
 
-            Assert.IsNull(vm.SelectedContact);
+            Assert.IsNull(viewModel.SelectedContact);
         }
 
         [TestMethod]
         public void SelectedContactGet_ReturnsContact()
         {
-            var vm = new MainWindowViewModel();
+            var viewModel = new MainWindowViewModel();
 
-            vm.SelectedContact = new();
+            viewModel.SelectedContact = new();
 
-            Assert.AreEqual(typeof(Contact), vm.SelectedContact.GetType());
+            Assert.AreEqual(typeof(Contact), viewModel.SelectedContact.GetType());
         }
 
         [TestMethod]
-        public void SetProperty_doesSetProperty()
+        public void SetProperty_DoesSetProperty()
         {
-            var vm = new MainWindowViewModel();
-            vm.Edit = true;
+            var viewModel = new MainWindowViewModel();
+            viewModel.Edit = true;
 
-            Assert.IsTrue(vm.Edit);
+            Assert.IsTrue(viewModel.Edit);
         } 
+        [TestMethod]
+        public void EditCommand_ReturnsRelayCommand()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.AreEqual(typeof(RelayCommand), viewModel.EditCommand.GetType());
+        }
 
+        [TestMethod]
+        public void EditCommand_NotNull()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.IsNotNull(viewModel.EditCommand);
+        }
 
+        [TestMethod]
+        public void EditCommand_True_False()
+        {
+            var viewModel = new MainWindowViewModel();
+            viewModel.Edit = true;
+            var editCommand = viewModel.EditCommand;
+
+            editCommand.Execute(null);
+
+            Assert.IsFalse(viewModel.Edit);
+        }
+
+        [TestMethod]
+        public void EditCommand_False_True()
+        {
+            var viewModel = new MainWindowViewModel();
+            viewModel.Edit = false;
+            var editCommand = viewModel.EditCommand;
+
+            editCommand.Execute(null);
+
+            Assert.IsTrue(viewModel.Edit);
+        }
+
+        [TestMethod]
+        public void NewContactCommand_ReturnsRelayCommand()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.AreEqual(typeof(RelayCommand), viewModel.NewContactCommand.GetType());
+        }
+
+        [TestMethod]
+        public void NewContactCommand_NotNull()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.IsNotNull(viewModel.NewContactCommand);
+        }
+
+        [TestMethod]
+        public void NewContactCommand_AddNewContact_CountIncrease()
+        {
+            var viewModel = new MainWindowViewModel();
+            var initialCount = viewModel.Contacts.Count;
+            var newContactCommand = viewModel.NewContactCommand;
+            newContactCommand.Execute(null);
+
+            Assert.AreEqual(initialCount+1, viewModel.Contacts.Count);
+        }
+
+        [TestMethod]
+        public void DeleteContactCommand_ReturnsRelayCommand()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.AreEqual(typeof(RelayCommand), viewModel.DeleteContactCommand.GetType());
+        }
+
+        [TestMethod]
+        public void DeleteContactCommand_NotNull()
+        {
+            var viewModel = new MainWindowViewModel();
+            Assert.IsNotNull(viewModel.DeleteContactCommand);
+        }
+
+        [TestMethod]
+        public void DeleteContactCommand_DeleteContact_CountDecrease()
+        {
+            var viewModel = new MainWindowViewModel();
+            int initialCount = viewModel.Contacts.Count;
+            var deleteContactCommand = viewModel.DeleteContactCommand;
+            viewModel.SelectedContact = viewModel.Contacts[0];
+            deleteContactCommand.Execute(null);
+
+            Assert.AreEqual(initialCount-1, viewModel.Contacts.Count);
+        }
     }
 }

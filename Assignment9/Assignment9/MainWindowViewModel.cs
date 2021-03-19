@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Assignment9
@@ -9,8 +11,10 @@ namespace Assignment9
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public ICommand EditCommand { get; }
+        public ICommand NewContactCommand { get; }
+        public ICommand DeleteContactCommand { get; }
         public event PropertyChangedEventHandler PropertyChanged;
-        public List<Contact> Contacts { get; } = new ();
+        public ObservableCollection<Contact> Contacts { get; } = new ();
 
         private bool _edit = false; 
         public bool Edit {
@@ -66,11 +70,26 @@ namespace Assignment9
                 });
 
             EditCommand = new RelayCommand(ToggleEdit);
+            NewContactCommand = new RelayCommand(CreateNewContact);
+            DeleteContactCommand = new RelayCommand(DeleteContact);
         }
 
-        private void ToggleEdit() 
+        private void ToggleEdit()
         {
-            Edit = !Edit;  
+            Edit = !Edit;
+        }
+
+        private void CreateNewContact()
+        {
+            Contact newContact = new() { FirstName = "New", LastName = "Contact" };
+            Contacts.Add(newContact);
+            SelectedContact = newContact;
+            Edit = true;
+        }
+
+        private void DeleteContact()
+        {
+            Contacts.Remove(SelectedContact);
         }
     }
 

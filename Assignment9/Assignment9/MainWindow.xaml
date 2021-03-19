@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Assignment9"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Contacts" Height="450" Width="800">
 
     <Window.Resources>
 
@@ -91,8 +91,8 @@
                 <TextBlock Text="{Binding LastModified, UpdateSourceTrigger=PropertyChanged, StringFormat=Last Modified: {0}}"/>
             </StackPanel>
         </DataTemplate>
-        
-        
+
+
 
         <DataTemplate x:Key="ContactListTemplate" DataType="{x:Type local:Contact}">
             <Grid>
@@ -107,6 +107,7 @@
                             <Binding Path="FirstName" />
                             <Binding Path= "LastName" />
                         </MultiBinding>
+                        
                     </TextBlock.Text>
                 </TextBlock>
 
@@ -114,67 +115,104 @@
         </DataTemplate>
 
     </Window.Resources>
-        
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static ApplicationCommands.Close}"
+                        CanExecute="CommandBinding_CanExecute"
+                        Executed="CommandBinding_Executed" />
+    </Window.CommandBindings>
+
+    <Window.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="N" Command="{Binding NewContactCommand}"/>
+        <KeyBinding Modifiers="Ctrl" Key="Q" Command="{x:Static ApplicationCommands.Close}"/>
+    </Window.InputBindings>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding Contacts}" 
-                 FontSize="20" 
-                 SelectedItem="{Binding SelectedContact}"
-                 ItemTemplate="{StaticResource ContactListTemplate}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        
-        <Grid Grid.Column="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
-                <Button Command="{Binding EditCommand}" Content="{Binding Edit, Converter={StaticResource BoolConverter}}">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Style.Triggers>
-                                <DataTrigger  Binding="{Binding SelectedContact}" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                </Button>
-                
-                <ContentControl Grid.Row="1"
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <MenuItem Header="_New" Command="{Binding NewContactCommand}"/>
+            <MenuItem Header="_Delete" Command="{Binding DeleteContactCommand}"/>
+        </Menu>
+       
+        <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Contacts}" 
+                 FontSize="20"
+                 SelectedItem="{Binding SelectedContact}"
+                 ItemTemplate="{StaticResource ContactListTemplate}" SelectionChanged="ListBox_SelectionChanged">
+            <ListBox.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteContactCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}"/>
+            </ListBox.InputBindings>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Tag" Value="{Binding Path=DataContext, RelativeSource={RelativeSource AncestorType=ListBox}}" />
+                    <Setter Property="ContextMenu">
+                        <Setter.Value>
+                            <ContextMenu>
+                                <MenuItem Header="Delete"
+                                          Command="{Binding PlacementTarget.Tag.DeleteContactCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" 
+                                          CommandParameter="{Binding Path=SelectedItem}">
+                                </MenuItem>
+                            </ContextMenu>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Command="{Binding EditCommand}" Content="{Binding Edit, Converter={StaticResource BoolConverter}}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger  Binding="{Binding SelectedContact}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <ContentControl Grid.Row="1" 
                                 Content="{Binding SelectedContact}"
                                 ContentTemplate="{StaticResource ContactDetailsTemplate}"
                                 Visibility="{Binding Edit, Converter={StaticResource InverseBoolToVisConverter}}">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <Trigger  Property="Content" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <Trigger  Property="Content" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
 
-                <ContentControl Grid.Row="1"
+            <ContentControl Grid.Row="1"
                                 Content="{Binding SelectedContact}"
                                 ContentTemplate="{StaticResource EditContactDetailsTemplate}"
                                 Visibility="{Binding Edit, Converter={StaticResource BoolToVisConverter}}">
-                    <ContentControl.Style>
-                        <Style TargetType="ContentControl">
-                            <Style.Triggers>
-                                <Trigger  Property="Content" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ContentControl.Style>
-                </ContentControl>
-            </Grid>
-        </Grid>
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <Trigger  Property="Content" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
         
+        </Grid>
+    
     </Grid>
 </Window>
